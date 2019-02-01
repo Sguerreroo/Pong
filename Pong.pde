@@ -23,19 +23,19 @@ void draw() {
   ball.move();
   ball.checkCollision();
   scoreBoard.display();
+  
+  if (keyPressed) {
+    if (key == 'w' || key == 'W')
+      player1.moveUp();
+    if (key == 's' || key == 'S')
+      player1.moveDown();
+  }
 
   if (showGoal > 0) {
     textSize(100);
     text("GOAL!!", width/2, height - 200);
     showGoal--;
   }
-}
-
-void keyPressed() {
-  if (key == 'w')
-    player1.moveUp();
-  if (key == 's')
-    player1.moveDown();
 }
 
 void mouseMoved() {
@@ -59,6 +59,7 @@ int chooseRandomDirection() {
 }
 
 class ScoreBoard {
+  
   int player1Score, player2Score;
   
   ScoreBoard(int player1Score, int player2Score) {
@@ -117,14 +118,14 @@ class Player {
     rect(this.xPosition, this.yPosition, this.width_, this.height_);
   }
   
-  public void moveUp() {
+  void moveUp() {
     if (this.yPosition > this.speed)
       this.yPosition -= speed;
     else
       this.yPosition = 0;
   }
   
-  public void moveDown() {
+  void moveDown() {
     if (this.yPosition + this.height_ + speed < height)
       this.yPosition += speed;
     else
