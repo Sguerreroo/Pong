@@ -79,6 +79,10 @@ void goal() {
   goal.play();
 }
 
+void win() {
+  win.play();
+}
+
 class ScoreBoard {
 
   int player1Score, player2Score;
@@ -106,10 +110,12 @@ class ScoreBoard {
     textSize(125);
     textAlign(CENTER);
     if (this.player1Score == goalsToWin) {
+      thread("win");
       text("Player 1 Wins", width/2, height/2);
       noLoop();
     }
     if (this.player2Score == goalsToWin) {
+      thread("win");
       text("Player 2 Wins", width/2, height/2);
       noLoop();
     }
@@ -220,13 +226,15 @@ class Ball {
   private void checkGoal() {
     if (this.xPosition - this.width_ / 2 > width) {
       scoreBoard.addPointPlayer1();
-      thread("goal");
+      if (scoreBoard.player1Score < goalsToWin)
+        thread("goal");
       showGoal = 50;
       resetBall();
     }
     if (this.xPosition < 0 - this.width_) {
       scoreBoard.addPointPlayer2();
-      thread("goal");
+      if (scoreBoard.player2Score < goalsToWin)
+        thread("goal");
       showGoal = 50;
       resetBall();
     }
